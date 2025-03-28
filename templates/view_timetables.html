@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Timetables</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .filter-form {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        .no-timetables {
+            color: #666;
+            font-style: italic;
+            margin: 20px 0;
+        }
+        .timetable-info {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .error-message {
+            color: #d9534f;
+            padding: 10px;
+            background-color: #f2dede;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Generated Timetables</h2>
+        
+        {% if error_message %}
+        <div class="error-message">
+            {{ error_message }}
+        </div>
+        {% endif %}
+        
+        <form method="get" class="filter-form">
+            <div class="form-group">
+                <label for="department">Department</label>
+                <select name="department" id="department" class="form-control">
+                    <option value="">All Departments</option>
+                    {% for dept in departments %}
+                    <option value="{{ dept }}" {% if dept == selected_department %}selected{% endif %}>{{ dept }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="semester">Semester</label>
+                <select name="semester" id="semester" class="form-control">
+                    <option value="">All Semesters</option>
+                    {% for sem in semesters %}
+                    <option value="{{ sem }}" {% if sem == selected_semester %}selected{% endif %}>{{ sem }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="section">Section</label>
+                <select name="section" id="section" class="form-control">
+                    <option value="">All Sections</option>
+                    {% for sec in sections %}
+                    <option value="{{ sec }}" {% if sec == selected_section %}selected{% endif %}>{{ sec }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group" style="align-self: flex-end;">
+                <button type="submit" class="btn">Filter</button>
+            </div>
+        </form>
+
+        {% if timetables %}
+            {% for timetable in timetables %}
+            <div class="timetable-info">
+                <h3>Timetable for {{ timetable['department'] }} - Semester {{ timetable['semester'] }} - Section {{ timetable['section'] }}</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time/Day</th>
+                            {% for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] %}
+                            <th>{{ day }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for time in ['10-11', '11-12', '12-1', 'LUNCH', '2-3', '3-4'] %}
+                        <tr>
+                            <td>{{ time }}</td>
+                            {% for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] %}
+                            <td>
+                                {% if timetable['timetable'][day][time] %}
+                                    {{ timetable['timetable'][day][time] }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endfor %}
+        {% else %}
+        <p class="no-timetables">No timetables found for the selected filters.</p>
+        {% endif %}
+
+        <div class="actions">
+            <a href="{{ url_for('upload_subjects') }}" class="btn">Back to Upload</a>
+        </div>
+    </div>
+</body>
+</html>

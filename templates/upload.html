@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Subjects</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .message {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+        }
+        .error {
+            background-color: #f2dede;
+            color: #a94442;
+            border: 1px solid #ebccd1;
+        }
+        .file-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .file-requirements {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upload Subjects</h2>
+        
+        {% if message %}
+        <div class="message {% if success %}success{% else %}error{% endif %}">
+            {{ message }}
+        </div>
+        {% endif %}
+
+        <div class="file-requirements">
+            <h4>Excel File Requirements:</h4>
+            <ul>
+                <li>Must include these columns: Department, Semester, Section, Subject, Theory Classes, Practical Classes, Tutorial Classes, Faculty</li>
+                <li>Department, Semester, Section, and Subject cannot be empty</li>
+                <li>Class counts should be numeric values</li>
+            </ul>
+        </div>
+
+        <form action="{{ url_for('upload_subjects') }}" method="POST" enctype="multipart/form-data">
+            <div class="file-upload form-group">
+                <label for="file" class="file-label">Choose Excel File</label>
+                <input type="file" name="file" id="file" accept=".xlsx,.xls" required>
+            </div>
+
+            <button type="submit" class="btn">Upload Subjects and Generate Timetables</button>
+        </form>
+
+        <div class="actions">
+            <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

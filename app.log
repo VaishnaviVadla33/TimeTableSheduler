@@ -1,0 +1,627 @@
+2025-03-27 17:57:12,297 - INFO - Successfully connected to MongoDB
+2025-03-27 17:57:12,325 - WARNING -  * Debugger is active!
+2025-03-27 17:57:12,329 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 17:57:13,972 - INFO - 127.0.0.1 - - [27/Mar/2025 17:57:13] "GET /upload HTTP/1.1" 200 -
+2025-03-27 17:57:14,013 - INFO - 127.0.0.1 - - [27/Mar/2025 17:57:14] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 17:57:20,477 - INFO - Storing timetable - Department: CSE, Semester: 3, Section: a
+2025-03-27 17:57:20,516 - INFO - Upsert result: Modified 0, Upserted 67e544296cd9d91859a76707
+2025-03-27 17:57:20,516 - INFO - Storing timetable - Department: CSE, Semester: 3, Section: b
+2025-03-27 17:57:20,555 - INFO - Upsert result: Modified 0, Upserted 67e544296cd9d91859a76708
+2025-03-27 17:57:20,555 - INFO - Storing timetable - Department: CS_DS, Semester: 3, Section: a
+2025-03-27 17:57:20,603 - INFO - Upsert result: Modified 0, Upserted 67e544296cd9d91859a76709
+2025-03-27 17:57:20,605 - INFO - Storing timetable - Department: CS_DS, Semester: 4, Section: a
+2025-03-27 17:57:20,650 - INFO - Upsert result: Modified 0, Upserted 67e544296cd9d91859a7670a
+2025-03-27 17:57:20,655 - INFO - 127.0.0.1 - - [27/Mar/2025 17:57:20] "POST /upload HTTP/1.1" 200 -
+2025-03-27 17:57:20,688 - INFO - 127.0.0.1 - - [27/Mar/2025 17:57:20] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 17:57:22,034 - INFO - 127.0.0.1 - - [27/Mar/2025 17:57:22] "GET / HTTP/1.1" 200 -
+2025-03-27 17:57:22,054 - INFO - 127.0.0.1 - - [27/Mar/2025 17:57:22] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 17:57:23,323 - INFO - 127.0.0.1 - - [27/Mar/2025 17:57:23] "GET /view_timetables HTTP/1.1" 200 -
+2025-03-27 17:57:23,348 - INFO - 127.0.0.1 - - [27/Mar/2025 17:57:23] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 18:26:45,100 - ERROR - MongoDB Connection Error: ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net:27017: timed out,ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net:27017: timed out,ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net:27017: timed out, Timeout: 30s, Topology Description: <TopologyDescription id: 67e54aee829c5821e35f4417, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net:27017: timed out')>, <ServerDescription ('ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net:27017: timed out')>, <ServerDescription ('ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net:27017: timed out')>]>
+2025-03-27 18:26:45,116 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app.py", line 38, in get_mongodb_connection
+    client.admin.command('ping')
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\database.py", line 751, in command
+    with self.__client._socket_for_reads(
+  File "C:\Users\vaish\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\mongo_client.py", line 1387, in _socket_for_reads
+    server = self._select_server(read_preference, session)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\mongo_client.py", line 1346, in _select_server
+    server = topology.select_server(server_selector)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\topology.py", line 244, in select_server
+    return random.choice(self.select_servers(selector,
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\topology.py", line 202, in select_servers
+    server_descriptions = self._select_servers_loop(
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\topology.py", line 218, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+pymongo.errors.ServerSelectionTimeoutError: ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net:27017: timed out,ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net:27017: timed out,ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net:27017: timed out, Timeout: 30s, Topology Description: <TopologyDescription id: 67e54aee829c5821e35f4417, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net:27017: timed out')>, <ServerDescription ('ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net:27017: timed out')>, <ServerDescription ('ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net:27017: timed out')>]>
+
+2025-03-27 18:26:45,118 - CRITICAL - Could not establish MongoDB connection. Application cannot start.
+2025-03-27 18:34:36,266 - ERROR - MongoDB Connection Error: ac-lxbzzud-shard-00-02.zebeiib.mongodb.net:27017: timed out,ac-lxbzzud-shard-00-01.zebeiib.mongodb.net:27017: timed out,ac-lxbzzud-shard-00-00.zebeiib.mongodb.net:27017: timed out, Timeout: 30s, Topology Description: <TopologyDescription id: 67e54cc55ea7369cd0161bab, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-lxbzzud-shard-00-00.zebeiib.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-lxbzzud-shard-00-00.zebeiib.mongodb.net:27017: timed out')>, <ServerDescription ('ac-lxbzzud-shard-00-01.zebeiib.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-lxbzzud-shard-00-01.zebeiib.mongodb.net:27017: timed out')>, <ServerDescription ('ac-lxbzzud-shard-00-02.zebeiib.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-lxbzzud-shard-00-02.zebeiib.mongodb.net:27017: timed out')>]>
+2025-03-27 18:34:36,272 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app.py", line 38, in get_mongodb_connection
+    client.admin.command('ping')
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\database.py", line 751, in command
+    with self.__client._socket_for_reads(
+  File "C:\Users\vaish\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\mongo_client.py", line 1387, in _socket_for_reads
+    server = self._select_server(read_preference, session)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\mongo_client.py", line 1346, in _select_server
+    server = topology.select_server(server_selector)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\topology.py", line 244, in select_server
+    return random.choice(self.select_servers(selector,
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\topology.py", line 202, in select_servers
+    server_descriptions = self._select_servers_loop(
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\topology.py", line 218, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+pymongo.errors.ServerSelectionTimeoutError: ac-lxbzzud-shard-00-02.zebeiib.mongodb.net:27017: timed out,ac-lxbzzud-shard-00-01.zebeiib.mongodb.net:27017: timed out,ac-lxbzzud-shard-00-00.zebeiib.mongodb.net:27017: timed out, Timeout: 30s, Topology Description: <TopologyDescription id: 67e54cc55ea7369cd0161bab, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-lxbzzud-shard-00-00.zebeiib.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-lxbzzud-shard-00-00.zebeiib.mongodb.net:27017: timed out')>, <ServerDescription ('ac-lxbzzud-shard-00-01.zebeiib.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-lxbzzud-shard-00-01.zebeiib.mongodb.net:27017: timed out')>, <ServerDescription ('ac-lxbzzud-shard-00-02.zebeiib.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-lxbzzud-shard-00-02.zebeiib.mongodb.net:27017: timed out')>]>
+
+2025-03-27 18:34:36,277 - CRITICAL - Could not establish MongoDB connection. Application cannot start.
+2025-03-27 18:35:25,080 - ERROR - MongoDB Connection Error: ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net:27017: timed out,ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net:27017: timed out,ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net:27017: timed out, Timeout: 30s, Topology Description: <TopologyDescription id: 67e54cf653db9c0cecced0b7, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net:27017: timed out')>, <ServerDescription ('ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net:27017: timed out')>, <ServerDescription ('ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net:27017: timed out')>]>
+2025-03-27 18:35:25,086 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app.py", line 38, in get_mongodb_connection
+    client.admin.command('ping')
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\database.py", line 751, in command
+    with self.__client._socket_for_reads(
+  File "C:\Users\vaish\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\mongo_client.py", line 1387, in _socket_for_reads
+    server = self._select_server(read_preference, session)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\mongo_client.py", line 1346, in _select_server
+    server = topology.select_server(server_selector)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\topology.py", line 244, in select_server
+    return random.choice(self.select_servers(selector,
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\topology.py", line 202, in select_servers
+    server_descriptions = self._select_servers_loop(
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\topology.py", line 218, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+pymongo.errors.ServerSelectionTimeoutError: ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net:27017: timed out,ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net:27017: timed out,ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net:27017: timed out, Timeout: 30s, Topology Description: <TopologyDescription id: 67e54cf653db9c0cecced0b7, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net:27017: timed out')>, <ServerDescription ('ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net:27017: timed out')>, <ServerDescription ('ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net:27017: timed out')>]>
+
+2025-03-27 18:35:25,086 - CRITICAL - Could not establish MongoDB connection. Application cannot start.
+2025-03-27 18:39:38,513 - ERROR - MongoDB Connection Error: ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net:27017: timed out,ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net:27017: timed out,ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net:27017: timed out, Timeout: 30s, Topology Description: <TopologyDescription id: 67e54df4960830766ddfae4a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net:27017: timed out')>, <ServerDescription ('ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net:27017: timed out')>, <ServerDescription ('ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net:27017: timed out')>]>
+2025-03-27 18:39:38,519 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app.py", line 38, in get_mongodb_connection
+    client.admin.command('ping')
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\database.py", line 751, in command
+    with self.__client._socket_for_reads(
+  File "C:\Users\vaish\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\mongo_client.py", line 1387, in _socket_for_reads
+    server = self._select_server(read_preference, session)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\mongo_client.py", line 1346, in _select_server
+    server = topology.select_server(server_selector)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\topology.py", line 244, in select_server
+    return random.choice(self.select_servers(selector,
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\topology.py", line 202, in select_servers
+    server_descriptions = self._select_servers_loop(
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\topology.py", line 218, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+pymongo.errors.ServerSelectionTimeoutError: ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net:27017: timed out,ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net:27017: timed out,ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net:27017: timed out, Timeout: 30s, Topology Description: <TopologyDescription id: 67e54df4960830766ddfae4a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net:27017: timed out')>, <ServerDescription ('ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net:27017: timed out')>, <ServerDescription ('ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net:27017: timed out')>]>
+
+2025-03-27 18:39:38,519 - CRITICAL - Could not establish MongoDB connection. Application cannot start.
+2025-03-27 18:45:10,047 - ERROR - MongoDB Connection Error: ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net:27017: timed out,ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net:27017: timed out,ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net:27017: timed out, Timeout: 30s, Topology Description: <TopologyDescription id: 67e54f3f69d2f52b1be3a384, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net:27017: timed out')>, <ServerDescription ('ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net:27017: timed out')>, <ServerDescription ('ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net:27017: timed out')>]>
+2025-03-27 18:45:10,053 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app.py", line 38, in get_mongodb_connection
+    client.admin.command('ping')
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\database.py", line 751, in command
+    with self.__client._socket_for_reads(
+  File "C:\Users\vaish\AppData\Local\Programs\Python\Python310\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\mongo_client.py", line 1387, in _socket_for_reads
+    server = self._select_server(read_preference, session)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\mongo_client.py", line 1346, in _select_server
+    server = topology.select_server(server_selector)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\topology.py", line 244, in select_server
+    return random.choice(self.select_servers(selector,
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\topology.py", line 202, in select_servers
+    server_descriptions = self._select_servers_loop(
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\pymongo\topology.py", line 218, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+pymongo.errors.ServerSelectionTimeoutError: ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net:27017: timed out,ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net:27017: timed out,ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net:27017: timed out, Timeout: 30s, Topology Description: <TopologyDescription id: 67e54f3f69d2f52b1be3a384, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-00.fe3gpaq.mongodb.net:27017: timed out')>, <ServerDescription ('ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-01.fe3gpaq.mongodb.net:27017: timed out')>, <ServerDescription ('ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('ac-dvu7v8d-shard-00-02.fe3gpaq.mongodb.net:27017: timed out')>]>
+
+2025-03-27 18:45:10,057 - CRITICAL - Could not establish MongoDB connection. Application cannot start.
+2025-03-27 18:56:36,637 - ERROR - Firebase Connection Error: [Errno 22] Invalid argument: 'D:\\web\\webathon_timetable\x0cirebase_credentials.json'
+2025-03-27 18:56:36,637 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app1.py", line 36, in initialize_firebase
+    cred = credentials.Certificate(FIREBASE_CREDENTIALS_PATH)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\firebase_admin\credentials.py", line 97, in __init__
+    with open(cert) as json_file:
+OSError: [Errno 22] Invalid argument: 'D:\\web\\webathon_timetable\x0cirebase_credentials.json'
+
+2025-03-27 18:56:36,637 - CRITICAL - Could not establish Firebase connection. Application cannot start.
+2025-03-27 18:58:49,258 - INFO - Successfully connected to Firebase
+2025-03-27 18:58:49,307 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-27 18:58:49,307 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-27 18:58:49,307 - INFO -  * Restarting with stat
+2025-03-27 18:58:50,148 - INFO - Successfully connected to Firebase
+2025-03-27 18:58:50,156 - WARNING -  * Debugger is active!
+2025-03-27 18:58:50,175 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 18:58:53,445 - INFO - 127.0.0.1 - - [27/Mar/2025 18:58:53] "GET / HTTP/1.1" 200 -
+2025-03-27 18:58:53,529 - INFO - 127.0.0.1 - - [27/Mar/2025 18:58:53] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 18:58:54,841 - INFO - 127.0.0.1 - - [27/Mar/2025 18:58:54] "GET /upload HTTP/1.1" 200 -
+2025-03-27 18:58:54,866 - INFO - 127.0.0.1 - - [27/Mar/2025 18:58:54] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 18:59:10,684 - INFO - Storing timetable - Department: CSE, Semester: 3, Section: a
+2025-03-27 18:59:11,635 - INFO - Storing timetable - Department: CSE, Semester: 3, Section: b
+2025-03-27 18:59:12,434 - INFO - Storing timetable - Department: CS_DS, Semester: 3, Section: a
+2025-03-27 18:59:13,299 - INFO - Storing timetable - Department: CS_DS, Semester: 4, Section: a
+2025-03-27 18:59:14,119 - INFO - 127.0.0.1 - - [27/Mar/2025 18:59:14] "POST /upload HTTP/1.1" 200 -
+2025-03-27 18:59:14,161 - INFO - 127.0.0.1 - - [27/Mar/2025 18:59:14] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 18:59:18,398 - INFO - 127.0.0.1 - - [27/Mar/2025 18:59:18] "GET / HTTP/1.1" 200 -
+2025-03-27 18:59:18,427 - INFO - 127.0.0.1 - - [27/Mar/2025 18:59:18] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 18:59:23,261 - INFO - 127.0.0.1 - - [27/Mar/2025 18:59:23] "GET /view_timetables HTTP/1.1" 200 -
+2025-03-27 18:59:23,276 - INFO - 127.0.0.1 - - [27/Mar/2025 18:59:23] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 18:59:38,041 - INFO - 127.0.0.1 - - [27/Mar/2025 18:59:38] "GET /view_timetables?department=&semester=&section= HTTP/1.1" 200 -
+2025-03-27 18:59:38,076 - INFO - 127.0.0.1 - - [27/Mar/2025 18:59:38] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:01:58,100 - INFO - 127.0.0.1 - - [27/Mar/2025 19:01:58] "GET /upload HTTP/1.1" 200 -
+2025-03-27 19:01:58,115 - INFO - 127.0.0.1 - - [27/Mar/2025 19:01:58] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:06:12,006 - INFO - Successfully connected to Firebase
+2025-03-27 19:06:12,054 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-27 19:06:12,054 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-27 19:06:12,055 - INFO -  * Restarting with stat
+2025-03-27 19:06:12,869 - INFO - Successfully connected to Firebase
+2025-03-27 19:06:12,882 - WARNING -  * Debugger is active!
+2025-03-27 19:06:12,894 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 19:06:16,173 - INFO - 127.0.0.1 - - [27/Mar/2025 19:06:16] "GET / HTTP/1.1" 200 -
+2025-03-27 19:06:16,234 - INFO - 127.0.0.1 - - [27/Mar/2025 19:06:16] "GET /static/styles.css HTTP/1.1" 200 -
+2025-03-27 19:06:18,073 - INFO - 127.0.0.1 - - [27/Mar/2025 19:06:18] "GET /upload HTTP/1.1" 200 -
+2025-03-27 19:06:18,087 - INFO - 127.0.0.1 - - [27/Mar/2025 19:06:18] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:06:25,318 - INFO - 127.0.0.1 - - [27/Mar/2025 19:06:25] "GET / HTTP/1.1" 200 -
+2025-03-27 19:06:25,339 - INFO - 127.0.0.1 - - [27/Mar/2025 19:06:25] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:06:30,301 - INFO - 127.0.0.1 - - [27/Mar/2025 19:06:30] "GET /view_timetables HTTP/1.1" 200 -
+2025-03-27 19:06:30,319 - INFO - 127.0.0.1 - - [27/Mar/2025 19:06:30] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:09:19,100 - ERROR - Error loading timetables: 'dict object' has no attribute 'days'
+2025-03-27 19:09:19,167 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app1.py", line 305, in view_timetables
+    return render_template("view_timetables.html", timetables=timetables)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\web\webathon_timetable\templates\view_timetables.html", line 122, in top-level template code
+    {% if timetable.days[day][time] %}
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\jinja2\environment.py", line 471, in getitem
+    return obj[argument]
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'days'
+
+2025-03-27 19:09:19,167 - INFO - 127.0.0.1 - - [27/Mar/2025 19:09:19] "GET /view_timetables HTTP/1.1" 200 -
+2025-03-27 19:09:19,194 - INFO - 127.0.0.1 - - [27/Mar/2025 19:09:19] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:14:33,395 - INFO - Successfully connected to Firebase
+2025-03-27 19:14:33,429 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-27 19:14:33,429 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-27 19:14:33,429 - INFO -  * Restarting with stat
+2025-03-27 19:14:34,280 - INFO - Successfully connected to Firebase
+2025-03-27 19:14:34,296 - WARNING -  * Debugger is active!
+2025-03-27 19:14:34,307 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 19:14:35,616 - INFO - 127.0.0.1 - - [27/Mar/2025 19:14:35] "GET / HTTP/1.1" 200 -
+2025-03-27 19:14:35,681 - INFO - 127.0.0.1 - - [27/Mar/2025 19:14:35] "GET /static/styles.css HTTP/1.1" 200 -
+2025-03-27 19:14:35,721 - INFO - 127.0.0.1 - - [27/Mar/2025 19:14:35] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-27 19:14:41,537 - INFO - 127.0.0.1 - - [27/Mar/2025 19:14:41] "GET /view_timetables HTTP/1.1" 200 -
+2025-03-27 19:14:41,552 - INFO - 127.0.0.1 - - [27/Mar/2025 19:14:41] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:20:58,496 - INFO -  * Detected change in 'D:\\web\\webathon_timetable\\app1.py', reloading
+2025-03-27 19:21:00,741 - INFO -  * Restarting with stat
+2025-03-27 19:21:01,975 - INFO - Successfully connected to Firebase
+2025-03-27 19:21:01,998 - WARNING -  * Debugger is active!
+2025-03-27 19:21:01,998 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 19:21:08,054 - INFO - 127.0.0.1 - - [27/Mar/2025 19:21:08] "GET / HTTP/1.1" 200 -
+2025-03-27 19:21:08,108 - INFO - 127.0.0.1 - - [27/Mar/2025 19:21:08] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:21:09,164 - INFO - 127.0.0.1 - - [27/Mar/2025 19:21:09] "GET / HTTP/1.1" 200 -
+2025-03-27 19:21:09,175 - INFO - 127.0.0.1 - - [27/Mar/2025 19:21:09] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:21:10,339 - INFO - 127.0.0.1 - - [27/Mar/2025 19:21:10] "GET /upload HTTP/1.1" 200 -
+2025-03-27 19:21:10,362 - INFO - 127.0.0.1 - - [27/Mar/2025 19:21:10] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:21:18,353 - INFO - 127.0.0.1 - - [27/Mar/2025 19:21:18] "GET /view_timetables HTTP/1.1" 200 -
+2025-03-27 19:21:18,385 - INFO - 127.0.0.1 - - [27/Mar/2025 19:21:18] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:21:29,819 - INFO - Successfully connected to Firebase
+2025-03-27 19:21:29,841 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-27 19:21:29,841 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-27 19:21:29,841 - INFO -  * Restarting with stat
+2025-03-27 19:21:30,692 - INFO - Successfully connected to Firebase
+2025-03-27 19:21:30,708 - WARNING -  * Debugger is active!
+2025-03-27 19:21:30,723 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 19:21:33,571 - INFO - 127.0.0.1 - - [27/Mar/2025 19:21:33] "GET / HTTP/1.1" 200 -
+2025-03-27 19:21:33,619 - INFO - 127.0.0.1 - - [27/Mar/2025 19:21:33] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:21:34,950 - INFO - 127.0.0.1 - - [27/Mar/2025 19:21:34] "GET /upload HTTP/1.1" 200 -
+2025-03-27 19:21:34,976 - INFO - 127.0.0.1 - - [27/Mar/2025 19:21:34] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:21:42,164 - INFO - 127.0.0.1 - - [27/Mar/2025 19:21:42] "GET /view_timetables HTTP/1.1" 200 -
+2025-03-27 19:21:42,200 - INFO - 127.0.0.1 - - [27/Mar/2025 19:21:42] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:25:27,988 - INFO -  * Detected change in 'D:\\web\\webathon_timetable\\app1.py', reloading
+2025-03-27 19:25:30,200 - INFO -  * Restarting with stat
+2025-03-27 19:25:31,390 - INFO - Successfully connected to Firebase
+2025-03-27 19:25:31,406 - WARNING -  * Debugger is active!
+2025-03-27 19:25:31,406 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 19:25:39,171 - INFO - 127.0.0.1 - - [27/Mar/2025 19:25:39] "GET /upload HTTP/1.1" 200 -
+2025-03-27 19:25:39,252 - INFO - 127.0.0.1 - - [27/Mar/2025 19:25:39] "GET /static/styles.css HTTP/1.1" 200 -
+2025-03-27 19:25:48,720 - INFO - Successfully connected to Firebase
+2025-03-27 19:25:48,752 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.180.65.119:5000
+2025-03-27 19:25:48,752 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-27 19:25:48,752 - INFO -  * Restarting with stat
+2025-03-27 19:25:49,551 - INFO - Successfully connected to Firebase
+2025-03-27 19:25:49,574 - WARNING -  * Debugger is active!
+2025-03-27 19:25:49,574 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 19:26:18,352 - INFO - 127.0.0.1 - - [27/Mar/2025 19:26:18] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 19:26:22,567 - ERROR - Error loading dashboard: 'dict object' has no attribute 'days'
+2025-03-27 19:26:22,571 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app1.py", line 384, in dashboard
+    return render_template("dashboard.html",
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\web\webathon_timetable\templates\dashboard.html", line 241, in top-level template code
+    {% if timetable.days[day][time] %}
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\jinja2\environment.py", line 471, in getitem
+    return obj[argument]
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'days'
+
+2025-03-27 19:26:22,571 - INFO - 127.0.0.1 - - [27/Mar/2025 19:26:22] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 19:26:22,656 - INFO - 127.0.0.1 - - [27/Mar/2025 19:26:22] "[33mGET /profile.png HTTP/1.1[0m" 404 -
+2025-03-27 19:26:29,809 - INFO - 127.0.0.1 - - [27/Mar/2025 19:26:29] "GET /upload HTTP/1.1" 200 -
+2025-03-27 19:26:29,900 - INFO - 127.0.0.1 - - [27/Mar/2025 19:26:29] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:26:31,908 - INFO - 127.0.0.1 - - [27/Mar/2025 19:26:31] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 19:26:35,529 - ERROR - Error loading dashboard: 'dict object' has no attribute 'days'
+2025-03-27 19:26:35,529 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app1.py", line 384, in dashboard
+    return render_template("dashboard.html",
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "D:\web\webathon_timetable\templates\dashboard.html", line 241, in top-level template code
+    {% if timetable.days[day][time] %}
+  File "D:\web\webathon_timetable\myenv\lib\site-packages\jinja2\environment.py", line 471, in getitem
+    return obj[argument]
+jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'days'
+
+2025-03-27 19:26:35,529 - INFO - 127.0.0.1 - - [27/Mar/2025 19:26:35] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 19:26:35,584 - INFO - 127.0.0.1 - - [27/Mar/2025 19:26:35] "[33mGET /profile.png HTTP/1.1[0m" 404 -
+2025-03-27 19:26:48,687 - INFO - 127.0.0.1 - - [27/Mar/2025 19:26:48] "GET /view_timetables?department=CSE&semester=3&section=A HTTP/1.1" 200 -
+2025-03-27 19:26:48,717 - INFO - 127.0.0.1 - - [27/Mar/2025 19:26:48] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:27:02,216 - INFO - 127.0.0.1 - - [27/Mar/2025 19:27:02] "GET /view_timetables?department=CS_DS&semester=3&section=b HTTP/1.1" 200 -
+2025-03-27 19:27:02,245 - INFO - 127.0.0.1 - - [27/Mar/2025 19:27:02] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:27:12,307 - INFO - 127.0.0.1 - - [27/Mar/2025 19:27:12] "GET /upload HTTP/1.1" 200 -
+2025-03-27 19:27:12,336 - INFO - 127.0.0.1 - - [27/Mar/2025 19:27:12] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:27:18,481 - INFO - 127.0.0.1 - - [27/Mar/2025 19:27:18] "GET /upload HTTP/1.1" 200 -
+2025-03-27 19:27:18,502 - INFO - 127.0.0.1 - - [27/Mar/2025 19:27:18] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:37:21,332 - INFO -  * Detected change in 'D:\\web\\webathon_timetable\\app1.py', reloading
+2025-03-27 19:37:23,613 - INFO -  * Restarting with stat
+2025-03-27 19:37:24,792 - INFO - Successfully connected to Firebase
+2025-03-27 19:37:24,812 - WARNING -  * Debugger is active!
+2025-03-27 19:37:24,812 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 19:37:27,221 - INFO - 127.0.0.1 - - [27/Mar/2025 19:37:27] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 19:37:27,259 - INFO - 127.0.0.1 - - [27/Mar/2025 19:37:27] "[33mGET /profile.png HTTP/1.1[0m" 404 -
+2025-03-27 19:37:52,072 - INFO - 127.0.0.1 - - [27/Mar/2025 19:37:52] "GET /view_timetables?department=CSE&semester=3&section=A HTTP/1.1" 200 -
+2025-03-27 19:37:52,170 - INFO - 127.0.0.1 - - [27/Mar/2025 19:37:52] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:37:59,280 - INFO - 127.0.0.1 - - [27/Mar/2025 19:37:59] "GET /view_timetables?department=CSE&semester=3&section= HTTP/1.1" 200 -
+2025-03-27 19:37:59,315 - INFO - 127.0.0.1 - - [27/Mar/2025 19:37:59] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:38:23,321 - INFO - 127.0.0.1 - - [27/Mar/2025 19:38:23] "GET /view_timetables?department=CS_DS&semester=4&section=b HTTP/1.1" 200 -
+2025-03-27 19:38:23,354 - INFO - 127.0.0.1 - - [27/Mar/2025 19:38:23] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:38:30,365 - INFO - 127.0.0.1 - - [27/Mar/2025 19:38:30] "GET /view_timetables?department=CS_DS&semester=4&section=a HTTP/1.1" 200 -
+2025-03-27 19:38:30,400 - INFO - 127.0.0.1 - - [27/Mar/2025 19:38:30] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:38:48,479 - INFO - 127.0.0.1 - - [27/Mar/2025 19:38:48] "GET /view_timetables?department=CSE&semester=3&section=A HTTP/1.1" 200 -
+2025-03-27 19:38:48,502 - INFO - 127.0.0.1 - - [27/Mar/2025 19:38:48] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:39:29,246 - INFO - 127.0.0.1 - - [27/Mar/2025 19:39:29] "GET /view_timetables?department=CSE&semester=3&section=A HTTP/1.1" 200 -
+2025-03-27 19:39:29,288 - INFO - 127.0.0.1 - - [27/Mar/2025 19:39:29] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:41:16,573 - INFO - 127.0.0.1 - - [27/Mar/2025 19:41:16] "GET /view_timetables?department=CSE&semester=2&section=A HTTP/1.1" 200 -
+2025-03-27 19:41:16,615 - INFO - 127.0.0.1 - - [27/Mar/2025 19:41:16] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:47:23,574 - INFO -  * Detected change in 'D:\\web\\webathon_timetable\\app1.py', reloading
+2025-03-27 19:47:25,799 - INFO -  * Restarting with stat
+2025-03-27 19:47:26,878 - INFO - Successfully connected to Firebase
+2025-03-27 19:47:26,895 - WARNING -  * Debugger is active!
+2025-03-27 19:47:26,899 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 19:47:34,542 - INFO - Successfully connected to Firebase
+2025-03-27 19:47:34,582 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.180.65.119:5000
+2025-03-27 19:47:34,582 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-27 19:47:34,582 - INFO -  * Restarting with stat
+2025-03-27 19:47:35,397 - INFO - Successfully connected to Firebase
+2025-03-27 19:47:35,413 - WARNING -  * Debugger is active!
+2025-03-27 19:47:35,424 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 19:48:10,829 - INFO - 127.0.0.1 - - [27/Mar/2025 19:48:10] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 19:48:16,232 - ERROR - Error loading dashboard: 'dict object' has no attribute 'days'
+2025-03-27 19:48:16,232 - INFO - 127.0.0.1 - - [27/Mar/2025 19:48:16] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 19:48:16,398 - INFO - 127.0.0.1 - - [27/Mar/2025 19:48:16] "[33mGET /profile.png HTTP/1.1[0m" 404 -
+2025-03-27 19:48:27,586 - INFO - 127.0.0.1 - - [27/Mar/2025 19:48:27] "GET /view_timetables?department=CSE&semester=3&section=A HTTP/1.1" 200 -
+2025-03-27 19:48:27,697 - INFO - 127.0.0.1 - - [27/Mar/2025 19:48:27] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:54:08,473 - INFO - Successfully connected to Firebase
+2025-03-27 19:54:08,502 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.180.65.119:5000
+2025-03-27 19:54:08,502 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-27 19:54:08,504 - INFO -  * Restarting with stat
+2025-03-27 19:54:09,390 - INFO - Successfully connected to Firebase
+2025-03-27 19:54:09,406 - WARNING -  * Debugger is active!
+2025-03-27 19:54:09,406 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 19:54:11,437 - INFO - 127.0.0.1 - - [27/Mar/2025 19:54:11] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 19:54:16,262 - ERROR - Error loading dashboard: 'dict object' has no attribute 'days'
+2025-03-27 19:54:16,262 - INFO - 127.0.0.1 - - [27/Mar/2025 19:54:16] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 19:54:16,314 - INFO - 127.0.0.1 - - [27/Mar/2025 19:54:16] "[33mGET /profile.png HTTP/1.1[0m" 404 -
+2025-03-27 19:54:27,119 - INFO - 127.0.0.1 - - [27/Mar/2025 19:54:27] "GET /view_timetables?department=CSE&semester=3&section=A HTTP/1.1" 200 -
+2025-03-27 19:54:27,205 - INFO - 127.0.0.1 - - [27/Mar/2025 19:54:27] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:54:37,546 - INFO - 127.0.0.1 - - [27/Mar/2025 19:54:37] "GET /view_timetables?department=CSE&semester=3&section=A HTTP/1.1" 200 -
+2025-03-27 19:54:37,586 - INFO - 127.0.0.1 - - [27/Mar/2025 19:54:37] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:55:04,271 - INFO - 127.0.0.1 - - [27/Mar/2025 19:55:04] "GET /view_timetables?department=CSE&semester=3&section=b HTTP/1.1" 200 -
+2025-03-27 19:55:04,313 - INFO - 127.0.0.1 - - [27/Mar/2025 19:55:04] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 19:55:16,155 - INFO - 127.0.0.1 - - [27/Mar/2025 19:55:16] "GET /view_timetables?department=CSE&semester=3&section= HTTP/1.1" 200 -
+2025-03-27 19:55:16,190 - INFO - 127.0.0.1 - - [27/Mar/2025 19:55:16] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 20:08:39,835 - INFO -  * Detected change in 'D:\\web\\webathon_timetable\\app1.py', reloading
+2025-03-27 20:08:42,271 - INFO -  * Restarting with stat
+2025-03-27 20:08:43,224 - INFO - Successfully connected to Firebase
+2025-03-27 20:08:43,249 - WARNING -  * Debugger is active!
+2025-03-27 20:08:43,255 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 20:08:49,730 - INFO - Successfully connected to Firebase
+2025-03-27 20:08:49,756 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.180.65.119:5000
+2025-03-27 20:08:49,756 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-27 20:08:49,756 - INFO -  * Restarting with stat
+2025-03-27 20:08:50,636 - INFO - Successfully connected to Firebase
+2025-03-27 20:08:50,657 - WARNING -  * Debugger is active!
+2025-03-27 20:08:50,661 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 20:08:54,409 - INFO - 127.0.0.1 - - [27/Mar/2025 20:08:54] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 20:08:59,487 - ERROR - Error loading dashboard: 'timetable' is undefined
+2025-03-27 20:08:59,577 - INFO - 127.0.0.1 - - [27/Mar/2025 20:08:59] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-03-27 20:08:59,702 - INFO - 127.0.0.1 - - [27/Mar/2025 20:08:59] "GET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-03-27 20:08:59,720 - INFO - 127.0.0.1 - - [27/Mar/2025 20:08:59] "GET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-03-27 20:08:59,776 - INFO - 127.0.0.1 - - [27/Mar/2025 20:08:59] "GET /dashboard?__debugger__=yes&cmd=resource&f=console.png&s=wiAYxS9Iu61OCIOD5HAJ HTTP/1.1" 200 -
+2025-03-27 20:08:59,827 - INFO - 127.0.0.1 - - [27/Mar/2025 20:08:59] "GET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-03-27 20:12:36,030 - INFO -  * Detected change in 'D:\\web\\webathon_timetable\\app1.py', reloading
+2025-03-27 20:12:38,253 - INFO -  * Restarting with stat
+2025-03-27 20:12:39,453 - INFO - Successfully connected to Firebase
+2025-03-27 20:12:39,469 - WARNING -  * Debugger is active!
+2025-03-27 20:12:39,469 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 20:12:48,280 - INFO - Successfully connected to Firebase
+2025-03-27 20:12:48,311 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.180.65.119:5000
+2025-03-27 20:12:48,311 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-27 20:12:48,311 - INFO -  * Restarting with stat
+2025-03-27 20:12:49,106 - INFO - Successfully connected to Firebase
+2025-03-27 20:12:49,123 - WARNING -  * Debugger is active!
+2025-03-27 20:12:49,123 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 20:12:59,360 - INFO - 127.0.0.1 - - [27/Mar/2025 20:12:59] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 20:13:03,476 - INFO - 127.0.0.1 - - [27/Mar/2025 20:13:03] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 20:13:43,499 - INFO - 127.0.0.1 - - [27/Mar/2025 20:13:43] "GET /upload HTTP/1.1" 200 -
+2025-03-27 20:13:43,585 - INFO - 127.0.0.1 - - [27/Mar/2025 20:13:43] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 20:14:04,112 - INFO - 127.0.0.1 - - [27/Mar/2025 20:14:04] "GET /upload HTTP/1.1" 200 -
+2025-03-27 20:14:04,134 - INFO - 127.0.0.1 - - [27/Mar/2025 20:14:04] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 20:16:13,855 - INFO - Successfully connected to Firebase
+2025-03-27 20:16:13,883 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.180.65.119:5000
+2025-03-27 20:16:13,885 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-27 20:16:13,885 - INFO -  * Restarting with stat
+2025-03-27 20:16:14,770 - INFO - Successfully connected to Firebase
+2025-03-27 20:16:14,791 - WARNING -  * Debugger is active!
+2025-03-27 20:16:14,798 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 20:16:17,542 - INFO - 127.0.0.1 - - [27/Mar/2025 20:16:17] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 20:16:21,854 - INFO - 127.0.0.1 - - [27/Mar/2025 20:16:21] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 20:24:08,877 - INFO - Successfully connected to Firebase
+2025-03-27 20:24:08,905 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.180.65.119:5000
+2025-03-27 20:24:08,905 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-27 20:24:08,905 - INFO -  * Restarting with stat
+2025-03-27 20:24:09,755 - INFO - Successfully connected to Firebase
+2025-03-27 20:24:09,770 - WARNING -  * Debugger is active!
+2025-03-27 20:24:09,776 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 20:24:12,350 - INFO - 127.0.0.1 - - [27/Mar/2025 20:24:12] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 20:24:16,581 - INFO - 127.0.0.1 - - [27/Mar/2025 20:24:16] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 20:39:13,168 - INFO -  * Detected change in 'D:\\web\\webathon_timetable\\app1.py', reloading
+2025-03-27 20:39:15,476 - INFO -  * Restarting with stat
+2025-03-27 20:39:16,553 - INFO - Successfully connected to Firebase
+2025-03-27 20:39:16,569 - WARNING -  * Debugger is active!
+2025-03-27 20:39:16,585 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 20:39:23,636 - INFO - 127.0.0.1 - - [27/Mar/2025 20:39:23] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 20:42:29,211 - INFO -  * Detected change in 'D:\\web\\webathon_timetable\\app1.py', reloading
+2025-03-27 20:42:31,394 - INFO -  * Restarting with stat
+2025-03-27 20:42:32,265 - INFO - Successfully connected to Firebase
+2025-03-27 20:42:32,285 - WARNING -  * Debugger is active!
+2025-03-27 20:42:32,289 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 20:42:55,058 - INFO - 127.0.0.1 - - [27/Mar/2025 20:42:55] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 20:43:45,715 - INFO - 127.0.0.1 - - [27/Mar/2025 20:43:45] "[33mPOST /update_timetable HTTP/1.1[0m" 404 -
+2025-03-27 20:43:51,465 - INFO - 127.0.0.1 - - [27/Mar/2025 20:43:51] "[33mPOST /update_timetable HTTP/1.1[0m" 404 -
+2025-03-27 20:44:15,783 - INFO - 127.0.0.1 - - [27/Mar/2025 20:44:15] "GET /upload HTTP/1.1" 200 -
+2025-03-27 20:44:15,881 - INFO - 127.0.0.1 - - [27/Mar/2025 20:44:15] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 20:44:41,716 - INFO - 127.0.0.1 - - [27/Mar/2025 20:44:41] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 20:44:45,829 - INFO - 127.0.0.1 - - [27/Mar/2025 20:44:45] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 20:44:55,725 - INFO - 127.0.0.1 - - [27/Mar/2025 20:44:55] "[33mPOST /update_timetable HTTP/1.1[0m" 404 -
+2025-03-27 20:48:51,934 - INFO -  * Detected change in 'D:\\web\\webathon_timetable\\app1.py', reloading
+2025-03-27 20:48:54,198 - INFO -  * Restarting with stat
+2025-03-27 20:48:55,215 - INFO - Successfully connected to Firebase
+2025-03-27 20:48:55,231 - WARNING -  * Debugger is active!
+2025-03-27 20:48:55,239 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 20:49:03,551 - INFO - 127.0.0.1 - - [27/Mar/2025 20:49:03] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 20:49:09,343 - ERROR - Error updating timetable: 'department'
+2025-03-27 20:49:09,345 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app1.py", line 387, in update_timetable
+    collection_name = f"{data['department']}_{data['semester']}_sections"
+KeyError: 'department'
+
+2025-03-27 20:49:09,371 - INFO - 127.0.0.1 - - [27/Mar/2025 20:49:09] "[35m[1mPOST /update_timetable HTTP/1.1[0m" 500 -
+2025-03-27 20:49:15,096 - ERROR - Error updating timetable: 'department'
+2025-03-27 20:49:15,096 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app1.py", line 387, in update_timetable
+    collection_name = f"{data['department']}_{data['semester']}_sections"
+KeyError: 'department'
+
+2025-03-27 20:49:15,114 - INFO - 127.0.0.1 - - [27/Mar/2025 20:49:15] "[35m[1mPOST /update_timetable HTTP/1.1[0m" 500 -
+2025-03-27 20:49:28,822 - ERROR - Error updating timetable: 'department'
+2025-03-27 20:49:28,823 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app1.py", line 387, in update_timetable
+    collection_name = f"{data['department']}_{data['semester']}_sections"
+KeyError: 'department'
+
+2025-03-27 20:49:28,836 - INFO - 127.0.0.1 - - [27/Mar/2025 20:49:28] "[35m[1mPOST /update_timetable HTTP/1.1[0m" 500 -
+2025-03-27 20:53:25,564 - INFO - Successfully connected to Firebase
+2025-03-27 20:53:25,600 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.180.65.119:5000
+2025-03-27 20:53:25,600 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-27 20:53:25,600 - INFO -  * Restarting with stat
+2025-03-27 20:53:26,484 - INFO - Successfully connected to Firebase
+2025-03-27 20:53:26,502 - WARNING -  * Debugger is active!
+2025-03-27 20:53:26,502 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 20:53:27,959 - INFO - 127.0.0.1 - - [27/Mar/2025 20:53:27] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 20:53:32,096 - INFO - 127.0.0.1 - - [27/Mar/2025 20:53:32] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 20:53:43,936 - ERROR - Error updating timetable: 'department'
+2025-03-27 20:53:43,939 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app1.py", line 395, in update_timetable
+    collection_name = f"{data['department']}_{data['semester']}_sections"
+KeyError: 'department'
+
+2025-03-27 20:53:43,940 - INFO - 127.0.0.1 - - [27/Mar/2025 20:53:43] "POST /update_timetable HTTP/1.1" 200 -
+2025-03-27 20:53:50,795 - ERROR - Error updating timetable: 'department'
+2025-03-27 20:53:50,796 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app1.py", line 395, in update_timetable
+    collection_name = f"{data['department']}_{data['semester']}_sections"
+KeyError: 'department'
+
+2025-03-27 20:53:50,796 - INFO - 127.0.0.1 - - [27/Mar/2025 20:53:50] "POST /update_timetable HTTP/1.1" 200 -
+2025-03-27 20:53:55,988 - ERROR - Error updating timetable: 'department'
+2025-03-27 20:53:55,989 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app1.py", line 395, in update_timetable
+    collection_name = f"{data['department']}_{data['semester']}_sections"
+KeyError: 'department'
+
+2025-03-27 20:53:55,989 - INFO - 127.0.0.1 - - [27/Mar/2025 20:53:55] "POST /update_timetable HTTP/1.1" 200 -
+2025-03-27 20:58:32,474 - INFO -  * Detected change in 'D:\\web\\webathon_timetable\\app1.py', reloading
+2025-03-27 20:58:34,660 - INFO -  * Restarting with stat
+2025-03-27 20:58:35,785 - INFO - Successfully connected to Firebase
+2025-03-27 20:58:35,808 - WARNING -  * Debugger is active!
+2025-03-27 20:58:35,819 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 20:58:56,043 - INFO - Successfully connected to Firebase
+2025-03-27 20:58:56,075 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.180.65.119:5000
+2025-03-27 20:58:56,075 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-27 20:58:56,085 - INFO -  * Restarting with stat
+2025-03-27 20:58:56,948 - INFO - Successfully connected to Firebase
+2025-03-27 20:58:56,962 - WARNING -  * Debugger is active!
+2025-03-27 20:58:56,962 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 20:59:02,274 - INFO - 127.0.0.1 - - [27/Mar/2025 20:59:02] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 20:59:04,568 - INFO - 127.0.0.1 - - [27/Mar/2025 20:59:04] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 20:59:42,197 - INFO -  * Detected change in 'D:\\web\\webathon_timetable\\app1.py', reloading
+2025-03-27 20:59:44,418 - INFO -  * Restarting with stat
+2025-03-27 21:08:51,533 - INFO - Successfully connected to Firebase
+2025-03-27 21:08:51,569 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.180.65.119:5000
+2025-03-27 21:08:51,569 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-27 21:08:51,569 - INFO -  * Restarting with stat
+2025-03-27 21:08:52,356 - INFO - Successfully connected to Firebase
+2025-03-27 21:08:52,384 - WARNING -  * Debugger is active!
+2025-03-27 21:08:52,394 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 21:08:53,977 - INFO - 127.0.0.1 - - [27/Mar/2025 21:08:53] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 21:08:59,450 - INFO - 127.0.0.1 - - [27/Mar/2025 21:08:59] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 21:08:59,643 - INFO - 127.0.0.1 - - [27/Mar/2025 21:08:59] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-27 21:09:19,287 - INFO - 127.0.0.1 - - [27/Mar/2025 21:09:19] "GET /upload HTTP/1.1" 200 -
+2025-03-27 21:09:19,428 - INFO - 127.0.0.1 - - [27/Mar/2025 21:09:19] "GET /static/styles.css HTTP/1.1" 200 -
+2025-03-27 21:09:22,239 - INFO - 127.0.0.1 - - [27/Mar/2025 21:09:22] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 21:09:23,851 - INFO - 127.0.0.1 - - [27/Mar/2025 21:09:23] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 21:09:25,707 - INFO - 127.0.0.1 - - [27/Mar/2025 21:09:25] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 21:09:27,355 - INFO - 127.0.0.1 - - [27/Mar/2025 21:09:27] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 21:09:28,840 - INFO - 127.0.0.1 - - [27/Mar/2025 21:09:28] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 21:09:30,227 - INFO - 127.0.0.1 - - [27/Mar/2025 21:09:30] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 21:09:31,877 - INFO - 127.0.0.1 - - [27/Mar/2025 21:09:31] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 21:09:34,085 - INFO - 127.0.0.1 - - [27/Mar/2025 21:09:34] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 21:11:45,874 - ERROR - Error updating timetable: '\n                                    \n                                        ML Lab (Naresh)\n                                    \n                                '
+2025-03-27 21:11:45,878 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app1.py", line 419, in update_timetable
+    timetable[data['day']][data['time']] = None
+KeyError: '\n                                    \n                                        ML Lab (Naresh)\n                                    \n                                '
+
+2025-03-27 21:11:45,880 - INFO - 127.0.0.1 - - [27/Mar/2025 21:11:45] "POST /update_timetable HTTP/1.1" 200 -
+2025-03-27 21:11:49,514 - ERROR - Error updating timetable: '\n                                    \n                                        DSA (Wasiha)\n                                    \n                                '
+2025-03-27 21:11:49,514 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app1.py", line 419, in update_timetable
+    timetable[data['day']][data['time']] = None
+KeyError: '\n                                    \n                                        DSA (Wasiha)\n                                    \n                                '
+
+2025-03-27 21:11:49,514 - INFO - 127.0.0.1 - - [27/Mar/2025 21:11:49] "POST /update_timetable HTTP/1.1" 200 -
+2025-03-27 21:16:09,302 - INFO - 127.0.0.1 - - [27/Mar/2025 21:16:09] "GET /upload HTTP/1.1" 200 -
+2025-03-27 21:16:09,340 - INFO - 127.0.0.1 - - [27/Mar/2025 21:16:09] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 21:16:37,204 - INFO - Storing timetable - Department: CSE, Semester: 3, Section: a
+2025-03-27 21:16:37,626 - INFO - Storing timetable - Department: CSE, Semester: 3, Section: b
+2025-03-27 21:16:38,913 - INFO - Storing timetable - Department: CS_DS, Semester: 3, Section: a
+2025-03-27 21:16:39,318 - INFO - Storing timetable - Department: CS_DS, Semester: 4, Section: a
+2025-03-27 21:16:40,586 - INFO - Storing timetable - Department: CS_DS, Semester: 7, Section: a
+2025-03-27 21:16:41,028 - INFO - 127.0.0.1 - - [27/Mar/2025 21:16:41] "POST /upload HTTP/1.1" 200 -
+2025-03-27 21:16:41,061 - INFO - 127.0.0.1 - - [27/Mar/2025 21:16:41] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 21:16:47,561 - INFO - 127.0.0.1 - - [27/Mar/2025 21:16:47] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 21:16:52,503 - INFO - 127.0.0.1 - - [27/Mar/2025 21:16:52] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 21:18:42,424 - INFO -  * Detected change in 'D:\\web\\webathon_timetable\\app1.py', reloading
+2025-03-27 21:18:44,694 - INFO -  * Restarting with stat
+2025-03-27 21:18:46,057 - INFO - Successfully connected to Firebase
+2025-03-27 21:18:46,096 - WARNING -  * Debugger is active!
+2025-03-27 21:18:46,102 - INFO -  * Debugger PIN: 104-675-034
+2025-03-27 21:18:57,142 - INFO - 127.0.0.1 - - [27/Mar/2025 21:18:57] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 21:19:39,612 - ERROR - Error updating timetable: '\n                                    \n                                        ps (wani)\n                                    \n                                '
+2025-03-27 21:19:39,619 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app1.py", line 411, in update_timetable
+    timetable[data['day']][data['time']] = data['new_class']
+KeyError: '\n                                    \n                                        ps (wani)\n                                    \n                                '
+
+2025-03-27 21:19:39,619 - INFO - 127.0.0.1 - - [27/Mar/2025 21:19:39] "POST /update_timetable HTTP/1.1" 200 -
+2025-03-27 21:24:30,090 - ERROR - Error updating timetable: '\n                                    \n                                        ps (wani)\n                                    \n                                '
+2025-03-27 21:24:30,090 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app1.py", line 419, in update_timetable
+    timetable[data['day']][data['time']] = None
+KeyError: '\n                                    \n                                        ps (wani)\n                                    \n                                '
+
+2025-03-27 21:24:30,092 - INFO - 127.0.0.1 - - [27/Mar/2025 21:24:30] "POST /update_timetable HTTP/1.1" 200 -
+2025-03-27 21:24:30,339 - INFO - 127.0.0.1 - - [27/Mar/2025 21:24:30] "GET /upload HTTP/1.1" 200 -
+2025-03-27 21:24:30,476 - INFO - 127.0.0.1 - - [27/Mar/2025 21:24:30] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 21:24:46,527 - INFO - 127.0.0.1 - - [27/Mar/2025 21:24:46] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 21:24:47,600 - INFO - 127.0.0.1 - - [27/Mar/2025 21:24:47] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 21:24:52,499 - INFO - 127.0.0.1 - - [27/Mar/2025 21:24:52] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 21:24:53,522 - INFO - 127.0.0.1 - - [27/Mar/2025 21:24:53] "GET /dashboard HTTP/1.1" 200 -
+2025-03-27 21:25:26,299 - ERROR - Error updating timetable: '\n                                    \n                                        dsa Tutorial (wasiha)\n                                    \n                                '
+2025-03-27 21:25:26,299 - ERROR - Traceback (most recent call last):
+  File "D:\web\webathon_timetable\app1.py", line 411, in update_timetable
+    timetable[data['day']][data['time']] = data['new_class']
+KeyError: '\n                                    \n                                        dsa Tutorial (wasiha)\n                                    \n                                '
+
+2025-03-27 21:25:26,299 - INFO - 127.0.0.1 - - [27/Mar/2025 21:25:26] "POST /update_timetable HTTP/1.1" 200 -
+2025-03-27 21:51:53,530 - INFO - 127.0.0.1 - - [27/Mar/2025 21:51:53] "GET /upload HTTP/1.1" 200 -
+2025-03-27 21:51:53,560 - INFO - 127.0.0.1 - - [27/Mar/2025 21:51:53] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 21:52:14,137 - INFO - Storing timetable - Department: CSE, Semester: 3, Section: a
+2025-03-27 21:52:15,391 - INFO - Storing timetable - Department: CSE, Semester: 3, Section: b
+2025-03-27 21:52:15,827 - INFO - Storing timetable - Department: CS_DS, Semester: 3, Section: a
+2025-03-27 21:52:17,079 - INFO - Storing timetable - Department: CS_DS, Semester: 4, Section: a
+2025-03-27 21:52:17,501 - INFO - Storing timetable - Department: CS_DS, Semester: 7, Section: a
+2025-03-27 21:52:18,750 - INFO - Storing timetable - Department: CS_DS, Semester: 8, Section: a
+2025-03-27 21:52:19,151 - INFO - Storing timetable - Department: CS_DS, Semester: 8, Section: b
+2025-03-27 21:52:20,394 - INFO - 127.0.0.1 - - [27/Mar/2025 21:52:20] "POST /upload HTTP/1.1" 200 -
+2025-03-27 21:52:20,437 - INFO - 127.0.0.1 - - [27/Mar/2025 21:52:20] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+2025-03-27 21:52:25,419 - INFO - 127.0.0.1 - - [27/Mar/2025 21:52:25] "[32mGET / HTTP/1.1[0m" 302 -
+2025-03-27 21:52:30,632 - INFO - 127.0.0.1 - - [27/Mar/2025 21:52:30] "GET /dashboard HTTP/1.1" 200 -

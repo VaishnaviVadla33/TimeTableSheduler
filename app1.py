@@ -65,8 +65,6 @@ except Exception as e:
     logging.critical("Could not establish Firebase connection. Application cannot start.")
     raise
 
-# [Rest of your code remains exactly the same...]
-
 # Constants
 DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 TIMINGS = ["10-11", "11-12", "12-1", "LUNCH", "2-3", "3-4"]

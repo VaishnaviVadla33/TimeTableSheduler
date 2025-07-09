@@ -19,8 +19,6 @@ WEBATHON_TIMETABLE/
 ├── firebase_credentials.json  # Firebase service account key
 ├── firebase_test.py           # Firebase connection test script
 ├── requirements.txt           # Python dependencies
-├── app.log                    # Application log file
-├── .gitignore                 # Git ignore file
 ├── static/                    # CSS and static files
 ├── templates/                 # HTML templates (Jinja2)
 │   ├── dashboard.html

@@ -331,6 +331,19 @@ document.addEventListener('DOMContentLoaded', function() {
         TEXT_DEFAULT: '#003049' // Dark text for contrast
     };
     
+    // Helper function to get day name from cell
+    function getDayFromCell(cell) {
+        const table = cell.closest('table');
+        const headerRow = table.rows[0];
+        return headerRow.cells[cell.cellIndex].textContent.trim();
+    }
+    
+    // Helper function to get time slot from cell
+    function getTimeFromCell(cell) {
+        const row = cell.parentNode;
+        return row.cells[0].textContent.trim();
+    }
+    
     // Add click event to all timetable cells
     document.querySelectorAll('.timetable-info td').forEach(cell => {
         cell.addEventListener('click', function(e) {
@@ -373,9 +386,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Reschedule button
         buttons[0].onclick = function() {
-            const newClass = prompt("Enter new class details:", selectedCell.textContent);
-            if (newClass && newClass.trim() !== '') {
-                performReschedule(selectedCell, newClass);
+            const currentText = selectedCell.textContent.trim();
+            const newClass = prompt("Enter new class details:", currentText === '-' ? '' : currentText);
+            if (newClass !== null && newClass.trim() !== '') {
+                performReschedule(selectedCell, newClass.trim());
             }
             resetSelection();
         };
@@ -411,9 +425,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const semester = timetableContainer.dataset.sem;
         const section = timetableContainer.dataset.sec;
         
-        const row = cell.parentNode;
-        const time = row.cells[0].textContent;
-        const day = cell.parentNode.parentNode.rows[0].cells[cell.cellIndex].textContent;
+        const day = getDayFromCell(cell);
+        const time = getTimeFromCell(cell);
+        
+        console.log('Reschedule data:', {
+            department, semester, section, day, time, newClass
+        });
         
         fetch('/update_timetable', {
             method: 'POST',
@@ -424,8 +441,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 department: department,
                 semester: semester,
                 section: section,
+                action: 'reschedule',
                 day: day,
-                time: time,
+                time_slot: time,
                 new_class: newClass
             })
         })
@@ -457,13 +475,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const semester = timetableContainer.dataset.sem;
         const section = timetableContainer.dataset.sec;
         
-        const row1 = cell1.parentNode;
-        const time1 = row1.cells[0].textContent;
-        const day1 = cell1.parentNode.parentNode.rows[0].cells[cell1.cellIndex].textContent;
+        const day1 = getDayFromCell(cell1);
+        const time1 = getTimeFromCell(cell1);
+        const day2 = getDayFromCell(cell2);
+        const time2 = getTimeFromCell(cell2);
         
-        const row2 = cell2.parentNode;
-        const time2 = row2.cells[0].textContent;
-        const day2 = cell2.parentNode.parentNode.rows[0].cells[cell2.cellIndex].textContent;
+        console.log('Swap data:', {
+            department, semester, section, day1, time1, day2, time2
+        });
+        
+        // Show loading state
+        cell1.style.opacity = '0.5';
+        cell2.style.opacity = '0.5';
         
         fetch('/update_timetable', {
             method: 'POST',
@@ -474,14 +497,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 department: department,
                 semester: semester,
                 section: section,
+                action: 'swap',
                 day1: day1,
-                time1: time1,
+                time_slot1: time1,
                 day2: day2,
-                time2: time2
+                time_slot2: time2
             })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
+            console.log('Swap response:', data);
+            
             if (data.success) {
                 // Swap the cell contents visually
                 const temp = cell1.textContent;
@@ -506,6 +537,11 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => {
             console.error('Error:', error);
             showNotification('Failed to swap classes: ' + error.message, 'error');
+        })
+        .finally(() => {
+            // Reset opacity
+            cell1.style.opacity = '1';
+            cell2.style.opacity = '1';
         });
     }
     
@@ -515,9 +551,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const semester = timetableContainer.dataset.sem;
         const section = timetableContainer.dataset.sec;
         
-        const row = cell.parentNode;
-        const time = row.cells[0].textContent;
-        const day = cell.parentNode.parentNode.rows[0].cells[cell.cellIndex].textContent;
+        const day = getDayFromCell(cell);
+        const time = getTimeFromCell(cell);
+        
+        console.log('Cancel data:', {
+            department, semester, section, day, time
+        });
         
         fetch('/update_timetable', {
             method: 'POST',
@@ -528,8 +567,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 department: department,
                 semester: semester,
                 section: section,
+                action: 'cancel',
                 day: day,
-                time: time
+                time_slot: time
             })
         })
         .then(response => response.json())

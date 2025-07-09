@@ -9,7 +9,6 @@ A Flask web application for uploading subject data from Excel files, generating 
 - Store and manage timetables using Firebase Firestore
 - Interactive timetable management (reschedule, swap, cancel classes)
 - Download all timetables in Excel format via ZIP file
-- Responsive web interface with real-time updates
 
 ## 📁 Project Structure
 

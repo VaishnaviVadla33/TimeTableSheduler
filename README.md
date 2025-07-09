@@ -70,20 +70,6 @@ pip install -r requirements.txt
 5. Click "Generate New Private Key" and download the JSON file
 6. Rename the downloaded file to `firebase_credentials.json` and place it in the project root directory
 
-### Firestore Security Rules
-
-For testing purposes, configure Firestore rules to allow access:
-
-```javascript
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if true;
-    }
-  }
-}
-```
-
 ## 🚀 How to Run
 
 1. **Activate virtual environment** (if you created one):

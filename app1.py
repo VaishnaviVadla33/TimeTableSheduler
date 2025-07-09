@@ -15,6 +15,10 @@ import pandas as pd
 import random
 import traceback
 import logging
+from flask import send_file
+import io
+import zipfile
+from io import BytesIO
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, 
@@ -30,40 +34,87 @@ app = Flask(__name__,
 )
 
 # Firebase Configuration
-# Use raw string (r prefix) for Windows paths or forward slashes
+# Improved Firebase Initialization Code
+import os
+import json
+import firebase_admin
+from firebase_admin import credentials, firestore
+import logging
+
+# Firebase Configuration
 FIREBASE_CREDENTIALS_PATH = r"D:\web\webathon_timetable\firebase_credentials.json"
 
-# App configuration
-app.secret_key = "your_unique_and_secret_key_here_123456"
-
-# Firebase Initialization
 def initialize_firebase():
-    """Initialize Firebase Admin SDK"""
+    """Initialize Firebase Admin SDK with better error handling"""
     try:
         # Check if Firebase app is already initialized
-        if not firebase_admin._apps:
-            # Verify the credentials file exists
-            if not os.path.exists(FIREBASE_CREDENTIALS_PATH):
-                raise FileNotFoundError(f"Firebase credentials file not found at {FIREBASE_CREDENTIALS_PATH}")
-            
-            cred = credentials.Certificate(FIREBASE_CREDENTIALS_PATH)
-            firebase_admin.initialize_app(cred)
+        if firebase_admin._apps:
+            logging.info("Firebase already initialized")
+            return firestore.client()
         
+        # Verify the credentials file exists
+        if not os.path.exists(FIREBASE_CREDENTIALS_PATH):
+            raise FileNotFoundError(f"Firebase credentials file not found at {FIREBASE_CREDENTIALS_PATH}")
+        
+        # Verify credentials file is valid JSON
+        try:
+            with open(FIREBASE_CREDENTIALS_PATH, 'r') as f:
+                creds_data = json.load(f)
+                required_keys = ['private_key', 'client_email', 'project_id']
+                missing_keys = [key for key in required_keys if key not in creds_data]
+                if missing_keys:
+                    raise ValueError(f"Missing required keys in credentials: {missing_keys}")
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Invalid JSON in credentials file: {e}")
+        
+        # Initialize Firebase
+        cred = credentials.Certificate(FIREBASE_CREDENTIALS_PATH)
+        firebase_admin.initialize_app(cred)
+        
+        db = firestore.client()
+        
+        # Test connection
+        try:
+            # Try to read from a test collection
+            test_ref = db.collection('test').limit(1)
+            list(test_ref.stream())
+            logging.info("Successfully connected to Firebase")
+        except Exception as e:
+            logging.warning(f"Firebase connection test failed: {e}")
+        
+        return db
+    
+    except Exception as e:
+        logging.error(f"Firebase Connection Error: {e}")
+        raise
+
+# Alternative initialization using environment variables (recommended)
+def initialize_firebase_env():
+    """Initialize Firebase using environment variables (more secure)"""
+    try:
+        if firebase_admin._apps:
+            return firestore.client()
+        
+        # Check for environment variable
+        if 'FIREBASE_CREDENTIALS' in os.environ:
+            # If credentials are stored as environment variable
+            creds_dict = json.loads(os.environ['FIREBASE_CREDENTIALS'])
+            cred = credentials.Certificate(creds_dict)
+        else:
+            # Fall back to file
+            cred = credentials.Certificate(FIREBASE_CREDENTIALS_PATH)
+        
+        firebase_admin.initialize_app(cred)
         db = firestore.client()
         logging.info("Successfully connected to Firebase")
         return db
     
     except Exception as e:
         logging.error(f"Firebase Connection Error: {e}")
-        logging.error(traceback.format_exc())
         raise
 
-# Initialize database connection
-try:
-    db = initialize_firebase()
-except Exception as e:
-    logging.critical("Could not establish Firebase connection. Application cannot start.")
-    raise
+# Initialize Firebase globally
+db = initialize_firebase()
 
 # Constants
 DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -219,7 +270,7 @@ def index():
 
 @app.route("/upload", methods=["GET", "POST"])
 def upload_subjects():
-    """Handle file upload and timetable generation"""
+    """Handle file upload and timetable generation with better error handling"""
     if request.method == "POST":
         try:
             # Check if file is present
@@ -249,18 +300,44 @@ def upload_subjects():
             try:
                 df = pd.read_excel(file_path)
                 validate_excel_data(df)
+                logging.info(f"Successfully read Excel file with {len(df)} rows")
             except Exception as e:
+                logging.error(f"Excel validation error: {str(e)}")
                 return render_template("upload.html", 
                     message=f"Error reading Excel file: {str(e)}", 
+                    error=True)
+
+            # Test Firebase connection before proceeding
+            try:
+                db = initialize_firebase()  # Use your improved initialization
+                # Test write operation
+                test_ref = db.collection('test').document('connection_test')
+                test_ref.set({'timestamp': firestore.SERVER_TIMESTAMP})
+                logging.info("Firebase connection test successful")
+            except Exception as e:
+                logging.error(f"Firebase connection test failed: {str(e)}")
+                return render_template("upload.html", 
+                    message=f"Database connection error: {str(e)}", 
                     error=True)
 
             # Store original subjects data
             try:
                 subjects_data = df.to_dict('records')
                 subjects_collection = db.collection('subjects')
-                for subject in subjects_data:
-                    subjects_collection.add(subject)
+                
+                # Clear existing subjects (optional)
+                # docs = subjects_collection.stream()
+                # for doc in docs:
+                #     doc.reference.delete()
+                
+                # Add new subjects
+                for i, subject in enumerate(subjects_data):
+                    doc_ref = subjects_collection.document(f"subject_{i}")
+                    doc_ref.set(subject)
+                
+                logging.info(f"Successfully stored {len(subjects_data)} subjects")
             except Exception as e:
+                logging.error(f"Error storing subjects: {str(e)}")
                 return render_template("upload.html", 
                     message=f"Error storing subjects: {str(e)}", 
                     error=True)
@@ -272,15 +349,24 @@ def upload_subjects():
                     return render_template("upload.html", 
                         message="No timetables were generated", 
                         error=True)
+                logging.info(f"Successfully generated {len(timetables)} timetables")
             except Exception as e:
+                logging.error(f"Error generating timetables: {str(e)}")
                 return render_template("upload.html", 
                     message=f"Error generating timetables: {str(e)}", 
                     error=True)
 
             # Store timetables
-            if not store_timetables(timetables):
+            try:
+                if not store_timetables(timetables):
+                    return render_template("upload.html", 
+                        message="Error storing timetables in database", 
+                        error=True)
+                logging.info("Successfully stored all timetables")
+            except Exception as e:
+                logging.error(f"Error storing timetables: {str(e)}")
                 return render_template("upload.html", 
-                    message="Error storing timetables in database", 
+                    message=f"Error storing timetables: {str(e)}", 
                     error=True)
 
             return render_template("upload.html", 
@@ -296,6 +382,57 @@ def upload_subjects():
 
     return render_template("upload.html", message=None)
 
+
+@app.route("/download_timetables")
+def download_timetables():
+    """Download all timetables as separate Excel files in a ZIP archive with proper formatting"""
+    try:
+        # Constants for correct row & column order
+        DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+        TIMINGS = ["10-11", "11-12", "12-1", "LUNCH", "2-3", "3-4"]
+
+        memory_zip = BytesIO()
+        with zipfile.ZipFile(memory_zip, 'w') as zf:
+            collections = [col for col in db.collections() if '_sections' in col.id]
+
+            for collection in collections:
+                for doc in collection.stream():
+                    data = doc.to_dict()
+                    timetable = data.get("timetable", {})
+
+                    # Build ordered data matrix
+                    ordered_data = {day: [] for day in DAYS}
+                    for time in TIMINGS:
+                        for day in DAYS:
+                            ordered_data[day].append(timetable.get(day, {}).get(time, ""))
+
+                    df = pd.DataFrame(ordered_data, index=TIMINGS)
+
+                    dept = data.get("department", "UnknownDept")
+                    sem = data.get("semester", "X")
+                    sec = data.get("section", "X")
+
+                    filename = f"Timetable_{dept}_Sem{sem}_Sec{sec}.xlsx"
+
+                    file_stream = BytesIO()
+                    with pd.ExcelWriter(file_stream, engine='xlsxwriter') as writer:
+                        df.to_excel(writer, index=True, sheet_name='Timetable')
+
+                    file_stream.seek(0)
+                    zf.writestr(filename, file_stream.read())
+
+        memory_zip.seek(0)
+        return send_file(
+            memory_zip,
+            download_name="All_Timetables.zip",
+            as_attachment=True,
+            mimetype="application/zip"
+        )
+
+    except Exception as e:
+        logging.error(f"Error generating timetables ZIP: {e}")
+        return "Failed to generate timetable download", 500
+    
 
 @app.route("/view_timetables")
 def view_timetables():
@@ -388,7 +525,14 @@ def dashboard():
 def update_timetable():
     """Handle timetable updates (reschedule, swap, cancel)"""
     try:
-        data = request.json
+        data = {k: v.strip() if isinstance(v, str) else v for k, v in request.json.items()}
+        logging.info(f"Received update data: {data}")
+
+        # Validate required fields
+        required_fields = ['department', 'semester', 'section']
+        missing_fields = [field for field in required_fields if field not in data]
+        if missing_fields:
+            return jsonify({"success": False, "error": f"Missing required fields: {missing_fields}"})
         
         # Construct collection name
         collection_name = f"{data['department']}_{data['semester']}_sections"
@@ -401,32 +545,108 @@ def update_timetable():
             return jsonify({"success": False, "error": "Timetable not found"})
         
         # Get the current timetable
-        timetable = section_doc.to_dict()['timetable']
+        timetable_data = section_doc.to_dict()
+        if 'timetable' not in timetable_data:
+            return jsonify({"success": False, "error": "Timetable data not found"})
+        
+        timetable = timetable_data['timetable']
+        
+        # Debug: Log timetable structure
+        logging.info(f"Timetable keys: {list(timetable.keys())}")
+        for day in timetable:
+            logging.info(f"Day '{day}' has timeslots: {list(timetable[day].keys())}")
         
         # Handle different update actions
-        if 'new_class' in data:
-            # Reschedule action
-            timetable[data['day']][data['time']] = data['new_class']
-        elif 'day1' in data:
-            # Swap action
-            temp = timetable[data['day1']][data['time1']]
-            timetable[data['day1']][data['time1']] = timetable[data['day2']][data['time2']]
-            timetable[data['day2']][data['time2']] = temp
+        if 'action' in data:
+            if data['action'] == 'reschedule':
+                # Reschedule action - need day, time_slot and new_class
+                if 'day' not in data or 'time_slot' not in data or 'new_class' not in data:
+                    return jsonify({"success": False, "error": "Missing day, time_slot or new_class for reschedule"})
+                
+                day = data['day']
+                time_slot = data['time_slot']
+                
+                if day not in timetable:
+                    return jsonify({"success": False, "error": f"Day '{day}' not found in timetable"})
+                
+                if time_slot not in timetable[day]:
+                    return jsonify({"success": False, "error": f"Time slot '{time_slot}' not found for day '{day}'"})
+                
+                timetable[day][time_slot] = data['new_class']
+                logging.info(f"Rescheduled {day} {time_slot} to {data['new_class']}")
+                
+            elif data['action'] == 'swap':
+                # Swap action - need two complete day-time pairs
+                required_swap_fields = ['day1', 'time_slot1', 'day2', 'time_slot2']
+                missing_swap_fields = [field for field in required_swap_fields if field not in data]
+                if missing_swap_fields:
+                    return jsonify({"success": False, "error": f"Missing swap fields: {missing_swap_fields}"})
+                
+                day1, time_slot1 = data['day1'], data['time_slot1']
+                day2, time_slot2 = data['day2'], data['time_slot2']
+                
+                # Debug logging
+                logging.info(f"Swap request: {day1} {time_slot1} <-> {day2} {time_slot2}")
+                
+                # Validate both slots exist
+                if day1 not in timetable:
+                    return jsonify({"success": False, "error": f"Day '{day1}' not found in timetable"})
+                if day2 not in timetable:
+                    return jsonify({"success": False, "error": f"Day '{day2}' not found in timetable"})
+                
+                if time_slot1 not in timetable[day1]:
+                    return jsonify({"success": False, "error": f"Time slot '{time_slot1}' not found for day '{day1}'"})
+                if time_slot2 not in timetable[day2]:
+                    return jsonify({"success": False, "error": f"Time slot '{time_slot2}' not found for day '{day2}'"})
+                
+                # Get current values
+                value1 = timetable[day1][time_slot1]
+                value2 = timetable[day2][time_slot2]
+                
+                logging.info(f"Swapping: '{value1}' at {day1} {time_slot1} with '{value2}' at {day2} {time_slot2}")
+                
+                # Perform the swap
+                timetable[day1][time_slot1] = value2
+                timetable[day2][time_slot2] = value1
+                
+                logging.info(f"Successfully swapped {day1} {time_slot1} with {day2} {time_slot2}")
+                
+            elif data['action'] == 'cancel':
+                # Cancel action - need day and time_slot
+                if 'day' not in data or 'time_slot' not in data:
+                    return jsonify({"success": False, "error": "Missing day or time_slot for cancel"})
+                
+                day = data['day']
+                time_slot = data['time_slot']
+                
+                if day not in timetable:
+                    return jsonify({"success": False, "error": f"Day '{day}' not found in timetable"})
+                
+                if time_slot not in timetable[day]:
+                    return jsonify({"success": False, "error": f"Time slot '{time_slot}' not found for day '{day}'"})
+                
+                timetable[day][time_slot] = None
+                logging.info(f"Cancelled {day} {time_slot}")
+                
+            else:
+                return jsonify({"success": False, "error": f"Unknown action: {data['action']}"})
+        
         else:
-            # Cancellation action
-            timetable[data['day']][data['time']] = None
+            return jsonify({"success": False, "error": "No action specified"})
         
         # Update the document
         section_ref.update({
             'timetable': timetable
         })
         
-        return jsonify({"success": True})
+        logging.info("Timetable updated successfully in database")
+        return jsonify({"success": True, "message": "Timetable updated successfully"})
     
     except Exception as e:
         logging.error(f"Error updating timetable: {e}")
         logging.error(traceback.format_exc())
         return jsonify({"success": False, "error": str(e)})
+    
     
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
